@@ -27,6 +27,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Web.AngularJS", "Web.Angula
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "63649"
+		SlnRelativePath = "Web.AngularJS\"
 	EndProjectSection
 EndProject
 Global
