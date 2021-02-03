@@ -1,0 +1,129 @@
+﻿.skin-corporate .main-header .navbar {
+    background-color: #ffbf00 !important;
+}
+
+.skin-corporate .main-header .logo {
+    background-color: #ffbf00 !important;
+    color: #ffffff;
+    border-bottom: 0 solid transparent;
+}
+
+.skin-corporate .main-header .user-header {
+    background-color: #ffbf00 !important;
+}
+
+.skin-corporate .main-header .navbar .sidebar-toggle:hover {
+    background: rgba(0, 0, 0, 0.1) !important;
+    color: #f6f6f6 !important;
+}
+
+.box.box-primary {
+    border-top-color: #ffbf00 !important;
+}
+
+.box.box-solid.box-primary {
+    border: 1px solid #ffbf00 !important;
+}
+
+    .box.box-solid.box-primary > .box-header {
+        color: #ffffff;
+        background: #ffbf00 !important;
+        background-color: #ffbf00 !important;
+    }
+
+.border-primary {
+    border-color: #ffa500 !important; /* Get from https://coolors.co, put in the primary color and adjust the HUE to a darker color */
+}
+
+.btn-primary {
+    background-color: #ffbf00 !important;
+    border-color: #E5AC00 !important; /* Get from https://coolors.co, put in the primary color and adjust the brightness to minus 10 */
+}
+
+.text-primary {
+    color: #ffa500 !important; /* The same as border-primary */
+}
+
+.bg-primary {
+    background-color: #ffa500 !important; /* The same as border-primary */
+    color: #fff !important;
+}
+
+.bg-primary-active {
+    background-color: #ff9d00 !important; /* Get from https://coolors.co, put in the border-primary color and adjust the HUE to a darker color */
+    color: #fff !important;
+}
+
+.nav-tabs-custom > .nav-tabs > li.active {
+    border-top-color: #ffbf00 !important;
+}
+
+.nav-stacked > li.active > a {
+    border-left-color: #ffbf00 !important;
+}
+
+.pagination > .active > a {
+    background-color: #ffbf00 !important;
+    border-color: #ffbf00 !important;
+}
+
+.info-box {
+    color: #444;
+    border: 1px solid #ffa500 !important; /* The same as border-primary */
+}
+
+.info-box-content i {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+
+.info-box .info-box-icon {
+    background-color: #fff;
+    padding: 6px;
+    height: 88px !important;
+}
+
+.info-box .info-box-content {
+    border-left: 1px solid #ffa500; /* The same as border-primary */
+    min-height: 88px !important;
+}
+
+.info-box .info-box-text {
+    white-space: normal !important;
+    text-transform: none !important;
+}
+
+.info-box.active {
+    color: #fff;
+    background-color: #ffa500 !important; /* The same as border-primary */
+}
+
+.info-box.unsuitable .info-box-content .info-box-text {
+    position: relative;
+    z-index: 2;
+}
+
+.info-box.unsuitable .info-box-content::after {
+    content: "\f00d";
+    font-family: FontAwesome;
+    position: absolute;
+    font-size: 70px;
+    color: #ffa500; /* The same as border-primary */
+    top: -10%;
+    left: 56%;
+    z-index: 1;
+    opacity: 0.7;
+}
+
+.info-box.unsuitable.active .info-box-content::after {
+    content: "\f00d";
+    font-family: FontAwesome;
+    position: absolute;
+    font-size: 70px;
+    color: navajowhite;
+    top: -10%;
+    left: 56%;
+    z-index: 1;
+    opacity: 0.7;
+}
