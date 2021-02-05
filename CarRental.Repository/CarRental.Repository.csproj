@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Auth.RolesToPermission\Auth.RolesToPermission.csproj" />
+    <ProjectReference Include="..\CarRental\CarRental.csproj" />
   </ItemGroup>
 
 </Project>
