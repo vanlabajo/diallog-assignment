@@ -2,12 +2,34 @@
 
 angular.module('myApp.shell', [])
 
-    .controller('ShellCtrl', ['$scope', '$window', '$document', 'AuthFactory',
-        async function ($scope, $window, $document, authFactory) {
+    .controller('ShellCtrl', ['$scope', '$rootScope', '$window', '$document', '$location', 'AuthFactory', '$timeout',
+        async function ($scope, $rootScope, $window, $document, $location, authFactory, $timeout) {
+            $scope.isBusy = true;
+            $scope.isAuthenticated = false;
+            $scope.user = null;
+
             $scope.minheight = ($window.innerHeight - 50) + 'px'; // 50px for the header
             angular.element($window).on('resize', () => {
                 $scope.minheight = ($window.innerHeight - 50) + 'px';
             });
+
+            activate();
+
+            async function activate() {
+                await authFactory.configureClient();
+
+                const query = $window.location.search;
+                const shouldParseResult = query.includes('code=') && query.includes('state=');
+                if (shouldParseResult) {
+                    await authFactory.handleRedirectCallback();
+                    $window.history.replaceState({}, $document[0].title, '/');  
+                    $window.location.search = '';                  
+                }
+
+                await authFactory.isAuthenticated();
+
+                toggleSpinner(false);
+            }
 
             $scope.searchMenu = (searchTerm) => {
                 angular.element('.sidebar-menu > li').not('.header').each(function () {
@@ -28,26 +50,50 @@ angular.module('myApp.shell', [])
                 });
             };
 
-            await authFactory.configureClient();
-
+            $scope.login = authFactory.login;
             $scope.logout = authFactory.logout;
 
-            $scope.isAuthenticated = await authFactory.isAuthenticated();
-            $scope.$apply();
+            function toggleSpinner(show) { $scope.isBusy = show; }
 
-            if (!$scope.isAuthenticated) {
-                authFactory.login();
+            $rootScope.$on('$routeChangeStart', () => {
+                toggleSpinner(true);
+            });
 
-                //const user = JSON.stringify(
-                //    await authFactory.getUser()
-                //);
-                //console.log(user);
-            }
+            $rootScope.$on('spinner.toggle', (_event, data) => {
+                toggleSpinner(data.show);
+            });
 
-            const query = $window.location.search;
-            const shouldParseResult = query.includes("code=") && query.includes("state=");
-            if (shouldParseResult) {
-                await authFactory.handleRedirectCallback();
-                $window.history.replaceState({}, $document.title, "/");
-            }
+            $rootScope.$on('$locationChangeStart', (event) => {
+                if ($location.path() !== '/' && !$scope.isAuthenticated) {
+                    event.preventDefault();
+                    toggleSpinner(false);
+                }
+                else if ($location.path() === '') {
+                    event.preventDefault();
+                    toggleSpinner(false);
+                }
+            });
+
+            $rootScope.$on('auth.isauthenticated', (_event, data) => {
+                $timeout(() => {
+                    toggleSpinner(true);
+                });
+                $timeout(() => {
+                    $scope.isAuthenticated = data;
+
+                    if ($scope.isAuthenticated) {
+                        $scope.user = authFactory.getUser();
+                        if ($scope.user !== null && $scope.user !== undefined) {
+                            if ($scope.user.picture === null || $scope.user.picture === undefined || $scope.user.picture === '') {
+                                $scope.user.picture = 'lib/adminlte/img/avatar5.png';
+                            }
+                        }
+
+                        console.log($scope.user);
+                    }
+
+                    $location.path('/');
+                    toggleSpinner(false);
+                }, 1800);
+            });
         }]);

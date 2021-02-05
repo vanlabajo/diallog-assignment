@@ -4,12 +4,21 @@
 angular.module('myApp', [
     'ngAnimate',
     'ngRoute',
+    'ngSanitize',
     'ui.bootstrap',
+    'angularMoment',
 
     'myApp.config',
+    'myApp.utilities',
     'myApp.auth',
     'myApp.shell',
-    'myApp.home'
+    'myApp.home',
+    'myApp.car',
+    'myApp.booking',
+    'myApp.pending-booking-admin',
+    'myApp.pending-booking',
+    'myApp.payment-admin',
+    'myApp.payment'
 ])
 
     .config(['$locationProvider', '$routeProvider',

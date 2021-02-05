@@ -1,0 +1,81 @@
+<section class="content-header">
+    <h1>
+        List of Cars
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#!/"><i class="fa fa-home"></i> Home</a></li>
+        <li class="active">List of Cars</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header" style="padding-top:5px;">
+                    <h3 class="box-title">
+                        <button class="btn btn-md btn-primary" ng-click="fetch()" title="Refresh">
+                            <i class="fa fa-refresh visible-xs-inline-block" aria-hidden="true"></i> <span class="hidden-xs">Refresh</span>
+                        </button>
+                        <button class="btn btn-md btn-primary" ng-click="add()" title="Add">
+                            <i class="fa fa-plus-circle" aria-hidden="true"></i> <span class="hidden-xs">Add</span>
+                        </button>
+                    </h3>
+                    <div class="box-tools">
+                        <form ng-submit="fetchByType()">
+                            <div class="input-group" style="width:200px;">
+                                <input type="search" class="form-control input-md pull-right" placeholder="Search by type" ng-model="searchByType">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-md btn-default"><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Action</th>
+                                <th>Type</th>
+                                <th>Size</th>
+                                <th>Daily Rental Cost</th>
+                                <th># of Units</th>
+                                <th># Rented Out</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="car in cars">
+                                <td>
+                                    <div class="btn-group btn-group-sm">
+                                        <button class="btn btn-info" ng-click="update(car)" title="Update">
+                                            <i class="fa fa-pencil"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                                <td>
+                                    {{ car.type }}
+                                </td>
+                                <td>
+                                    {{ car.size }}
+                                </td>
+                                <td>
+                                    {{ car.dailyRentalCost }}
+                                </td>
+                                <td>
+                                    {{ car.numberOfUnits }}
+                                </td>
+                                <td>
+                                    {{ car.rentedOut }}
+                                </td>
+                            </tr>
+                            <tr ng-if="cars.length == 0">
+                                <td colspan="6">No records found.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
