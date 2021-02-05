@@ -5,9 +5,7 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.API", "Web.API\Web.API.csproj", "{3ED0409A-7610-43C2-81C6-36F6F8F0E15F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.EF", "Data.EF\Data.EF.csproj", "{F2F78AEF-E807-40DF-A412-FC8DFE41DD09}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auth.RolesToPermission", "Auth.RolesToPermission\Auth.RolesToPermission.csproj", "{C16949EE-665E-4669-808B-859A28473F90}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRental.Repository", "CarRental.Repository\CarRental.Repository.csproj", "{F2F78AEF-E807-40DF-A412-FC8DFE41DD09}"
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Web.AngularJS", "Web.AngularJS\", "{301AD686-790D-4BAE-9371-2BBB792BF13D}"
 	ProjectSection(WebsiteProperties) = preProject
@@ -30,6 +28,12 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Web.AngularJS", "Web.Angula
 		SlnRelativePath = "Web.AngularJS\"
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRental", "CarRental\CarRental.csproj", "{E3D84692-7939-448C-B242-1BE683A5D1CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRental.Services", "CarRental.Services\CarRental.Services.csproj", "{177E44F0-09C8-41F6-BC41-BBFE59492A13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRental.UnitTests", "CarRental.UnitTests\CarRental.UnitTests.csproj", "{C6023591-D888-432A-8BB6-8EBED103C7F0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,14 +48,22 @@ Global
 		{F2F78AEF-E807-40DF-A412-FC8DFE41DD09}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2F78AEF-E807-40DF-A412-FC8DFE41DD09}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2F78AEF-E807-40DF-A412-FC8DFE41DD09}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C16949EE-665E-4669-808B-859A28473F90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C16949EE-665E-4669-808B-859A28473F90}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C16949EE-665E-4669-808B-859A28473F90}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C16949EE-665E-4669-808B-859A28473F90}.Release|Any CPU.Build.0 = Release|Any CPU
 		{301AD686-790D-4BAE-9371-2BBB792BF13D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{301AD686-790D-4BAE-9371-2BBB792BF13D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{301AD686-790D-4BAE-9371-2BBB792BF13D}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{301AD686-790D-4BAE-9371-2BBB792BF13D}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{E3D84692-7939-448C-B242-1BE683A5D1CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3D84692-7939-448C-B242-1BE683A5D1CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3D84692-7939-448C-B242-1BE683A5D1CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3D84692-7939-448C-B242-1BE683A5D1CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{177E44F0-09C8-41F6-BC41-BBFE59492A13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{177E44F0-09C8-41F6-BC41-BBFE59492A13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{177E44F0-09C8-41F6-BC41-BBFE59492A13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{177E44F0-09C8-41F6-BC41-BBFE59492A13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6023591-D888-432A-8BB6-8EBED103C7F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6023591-D888-432A-8BB6-8EBED103C7F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6023591-D888-432A-8BB6-8EBED103C7F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6023591-D888-432A-8BB6-8EBED103C7F0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
