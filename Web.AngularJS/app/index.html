@@ -8,28 +8,92 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Angular.js App!</title>
+    <title>Rent-A-Car</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="lib/adminlte/css/ionicons.min.css">
-    <link rel="stylesheet" href="lib/adminlte/css/jquery-jvectormap.css">
-    <link rel="stylesheet" href="lib/adminlte/css/dataTables.bootstrap.min.css">
-    <link rel="stylesheet" href="lib/adminlte/css/AdminLTE.min.css">
-    <link rel="stylesheet" href="lib/adminlte/css/skins/skin-yellow-light.min.css">
-    <link rel="stylesheet" href="lib/adminlte/css/customization-overrides.css">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="lib/adminlte/css/ionicons.min.css" />
+    <link rel="stylesheet" href="lib/adminlte/css/jquery-jvectormap.css" />
+    <link rel="stylesheet" href="lib/adminlte/css/dataTables.bootstrap.min.css" />
+    <link rel="stylesheet" href="lib/adminlte/css/AdminLTE.min.css" />
+    <link rel="stylesheet" href="lib/adminlte/css/skins/skin-yellow-light.min.css" />
+    <link rel="stylesheet" href="lib/adminlte/css/custom.overrides.css" />
+    <link rel="stylesheet" href="lib/adminlte/css/custom.splash.spinners.shuffle.css" />
 </head>
 <body class="hold-transition fixed sidebar-mini skin-yellow-light" ng-controller="ShellCtrl">
     <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
+    <!-- Spinner -->
+    <section id="content" ng-if="isBusy" style="float:right;min-height:520px!important;">
+        <div class="page-splash dissolve-animation">
+            <div class="page-splash-message" style="color:white!important;">
+                <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+                <span class="sr-only">Please wait ...</span>
+                <div ng-cloak class="ng-cloak" style="color:white!important;font-size:50%!important;margin-top:3%!important;">{{ vm.busyMessage }}</div>
+            </div>
+        </div>
+    </section>
 
-    <div class="wrapper" ng-if="isAuthenticated">
+    <!-- if not authenticated-->
+    <div ng-show="!isAuthenticated">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6" style="background-color:#ffff">
+                    <div style="padding:20px;">
+                        <div class="jumbotron">
+                            <h2>Welcome!</h2>
+                            <p>This is an online <b>car rental</b> portal where we offer you various options to choose from.</p>
+                        </div>
+                        <div class="page-header">
+                            <h3>Options</h3>
+                        </div>
+                        <ul style="font-size:16px">
+                            <li class="">Vehicle Size</li>
+                            <li>Capacity</li>
+                            <li>Gas Consumption</li>
+                            <li>Availability</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-6 lockscreen">
+                    <div style="height:100vh">
+                        <div class="lockscreen-wrapper" style="margin-top:0;padding-top:10%">
+                            <div class="lockscreen-logo">
+                                <a href="#!/"><b>Rent</b>A<b>Car</b></a>
+                            </div>
+                            <div class="lockscreen-item">
+                                <div class="lockscreen-image">
+                                    <img src="lib/adminlte/img/avatar5.png" alt="User Image">
+                                </div>
+                                <form class="lockscreen-credentials">
+                                    <button type="button" class="btn btn-default" style="padding:6px 12px;width:220px;"
+                                            ng-click="login()">
+                                        SIGN IN <i class="fa fa-arrow-right text-muted" style="position:absolute;line-height:24px;top:50%;margin-top:-12px;right:10px;"></i>
+                                    </button>
+                                </form>
+                            </div>
+                            <div class="help-block text-center">
+                                We require that you <b>register</b>
+                                before we allow any booking or reservation
+                            </div>
+                            <div class="lockscreen-footer text-center">
+                                <strong>Copyright &copy; 2021 <a href="https://github.com/vanlabajo">Van Labajo</a>.</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- if authenticated -->
+    <div class="wrapper" ng-show="isAuthenticated">
         <header class="main-header">
             <a href="#!/" class="logo">
-                <span class="logo-mini"><b>A</b>.js</span>
-                <span class="logo-lg"><b>Angular</b>.js</span>
+                <span class="logo-mini"><b>R</b>a<b>C</b></span>
+                <span class="logo-lg"><b>Rent</b>A<b>Car</b></span>
             </a>
             <nav class="navbar navbar-static-top" role="navigation">
                 <a href="" class="sidebar-toggle" data-toggle="push-menu" role="button">
@@ -225,19 +289,28 @@
                         </li>
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="lib/adminlte/img/avatar5.png" class="user-image" alt="User Image">
-                                <span class="hidden-xs">Van Labajo</span>
+                                <img src="{{ user.picture }}" class="user-image" alt="User Image">
+                                <span class="hidden-xs">{{ user.given_name + ' ' + user.family_name }}</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="user-header">
                                     <img src="lib/adminlte/img/avatar5.png" class="img-circle" alt="User Image">
                                     <p>
-                                        Van Labajo - Software Developer
-                                        <small>Since May 2009</small>
+                                        {{ user.given_name + ' ' + user.family_name }}
+                                        <small>{{ user.email }}</small>
+                                        <small ng-show="user !== null && user.admin">Admin</small>
                                     </p>
                                 </li>
                                 <li class="user-body">
-                                    <div class="row">
+                                    <div class="row" ng-if="user !== null && !user.admin">
+                                        <div class="col-xs-6 text-center">
+                                            <a href="#!/bookings">Bookings</a>
+                                        </div>
+                                        <div class="col-xs-6 text-center">
+                                            <a href="#!/payments">Payments</a>
+                                        </div>
+                                    </div>
+                                    <div class="row" ng-if="user !== null && user.admin">
                                         <div class="col-xs-4 text-center">
                                             <a href="#">Followers</a>
                                         </div>
@@ -267,12 +340,12 @@
             <section class="sidebar">
                 <div class="user-panel">
                     <div class="pull-left image">
-                        <img src="lib/adminlte/img/avatar5.png" class="img-circle" alt="User Image">
+                        <img src="{{ user.picture }}" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
                         <span>Welcome,</span>
                         <p style="margin-top:9px!important;white-space:initial!important">
-                            Van Labajo
+                            {{ user.given_name + ' ' + user.family_name }}
                         </p>
                     </div>
                 </div>
@@ -289,12 +362,43 @@
                 </form>
                 <ul class="sidebar-menu" data-widget="tree">
                     <li class="header">MAIN NAVIGATION</li>
-                    <li>
-                        <a href="#!/user-roles">
-                            <i class="fa fa-users"></i> <span>User Roles</span>
+                    <li ng-show="user !== null && user.admin">
+                        <a href="#!/cars">
+                            <i class="fa fa-car"></i> <span>Cars</span>
                             <span class="pull-right-container">
-                                <small class="label pull-right bg-green">new</small>
+                                <small class="label pull-right bg-green">admin</small>
                             </span>
+                        </a>
+                    </li>
+                    <li ng-show="user !== null && user.admin">
+                        <a href="#!/pending-bookings-admin">
+                            <i class="fa fa-calendar-o"></i> <span>Pending Bookings</span>
+                            <span class="pull-right-container">
+                                <small class="label pull-right bg-green">admin</small>
+                            </span>
+                        </a>
+                    </li>
+                    <li ng-show="user !== null && user.admin">
+                        <a href="#!/payments-admin">
+                            <i class="fa fa-calculator"></i> <span>Payment Details</span>
+                            <span class="pull-right-container">
+                                <small class="label pull-right bg-green">admin</small>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#!/bookings">
+                            <i class="fa fa-calendar-o"></i> <span>Bookings</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#!/pending-bookings">
+                            <i class="fa fa-calendar-o"></i> <span>Pending Bookings</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#!/payments">
+                            <i class="fa fa-calculator"></i> <span>Payment Details</span>
                         </a>
                     </li>
                 </ul>
@@ -308,10 +412,25 @@
         </footer>
     </div>
 
+    <!-- Splash Message -->
+    <div>
+        <div id="splash-page" ng-show="false">
+            <div class="page-splash" style="opacity:1!important;">
+                <div class="page-splash-message" style="color:white!important;">
+                    <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+                    <span class="sr-only">Please wait ...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="lib/jquery/dist/jquery.min.js"></script>
-    <script src="lib/angular/angular.js"></script>
-    <script src="lib/angular-route/angular-route.js"></script>
+    <script src="lib/angular/angular.min.js"></script>
+    <script src="lib/angular-route/angular-route.min.js"></script>
+    <script src="lib/angular-sanitize/angular-sanitize.min.js"></script>
     <script src="lib/angular-animate/angular-animate.min.js"></script>
+    <script src="lib/moment/min/moment.min.js"></script>
+    <script src="lib/angular-moment/angular-moment.min.js"></script>
     <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="lib/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
     <script src="lib/adminlte/js/adminlte.min.js"></script>
@@ -319,9 +438,17 @@
 
     <script src="app.js"></script>
     <script src="config.js"></script>
-    <script src="core/auth/factory.js"></script>
+    <script src="core/utilities/spinner.js"></script>
+    <script src="core/utilities/bootstrap.dialog.js"></script>
+    <script src="core/auth/auth.js"></script>
     <script src="shell.js"></script>
     <script src="home/home.js"></script>
+    <script src="car/car.js"></script>
+    <script src="booking/booking.js"></script>
+    <script src="pending-booking-admin/pending-booking-admin.js"></script>
+    <script src="pending-booking/pending-booking.js"></script>
+    <script src="payment-admin/payment-admin.js"></script>
+    <script src="payment/payment.js"></script>
     <script src="core/version/version.js"></script>
     <script src="core/version/version-directive.js"></script>
     <script src="core/version/interpolate-filter.js"></script>

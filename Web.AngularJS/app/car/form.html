@@ -1,0 +1,66 @@
+﻿<section class="content-header">
+    <h1>
+        Car Form
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#!/"><i class="fa fa-home"></i> Home</a></li>
+        <li><a href="" ng-click="cancel()">Car</a></li>
+        <li class="active">Form</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <form ng-submit="submit()">
+                    <div class="box-body">
+                        <div class="form-group" ng-class="{ 'has-feedback has-error' : validationErrors['type'] }">
+                            <label for="type">Type <span class="text-red">*</span></label>
+                            <select class="form-control" id="type"
+                                    ng-model="dirtyObject.type"
+                                    ng-options="type for type in types"></select>
+                            <label class="help-block" for="type" ng-show="validationErrors['type']">{{ validationErrors['type'] }}</label>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-feedback has-error' : validationErrors['size'] }">
+                            <label for="size">Size <span class="text-red">*</span></label>
+                            <input ng-model="dirtyObject.size"
+                                   type="number" class="form-control" id="size" placeholder="Required">
+                            <label class="help-block" for="size" ng-show="validationErrors['size']">{{ validationErrors['size'] }}</label>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-feedback has-error' : validationErrors['gasConsumption'] }">
+                            <label for="gasConsumption">Gas Consumption <span class="text-red">*</span></label>
+                            <input ng-model="dirtyObject.gasConsumption"
+                                   type="text" class="form-control" id="gasConsumption" placeholder="Required">
+                            <label class="help-block" for="gasConsumption" ng-show="validationErrors['gasConsumption']">{{ validationErrors['gasConsumption'] }}</label>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-feedback has-error' : validationErrors['dailyRentalCost'] }">
+                            <label for="dailyRentalCost">Daily Rental Cost <span class="text-red">*</span></label>
+                            <input ng-model="dirtyObject.dailyRentalCost"
+                                   type="number" class="form-control" id="dailyRentalCost" placeholder="Required">
+                            <label class="help-block" for="dailyRentalCost" ng-show="validationErrors['dailyRentalCost']">{{ validationErrors['dailyRentalCost'] }}</label>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-feedback has-error' : validationErrors['numberOfUnits'] }">
+                            <label for="numberOfUnits"># of Units <span class="text-red">*</span></label>
+                            <input ng-model="dirtyObject.numberOfUnits"
+                                   type="number" class="form-control" id="numberOfUnits" placeholder="Required">
+                            <label class="help-block" for="numberOfUnits" ng-show="validationErrors['numberOfUnits']">{{ validationErrors['numberOfUnits'] }}</label>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <div class="pull-right">
+                            <button ng-click="cancel()"
+                                    type="reset" class="btn btn-default">
+                                Cancel
+                            </button>
+                            <button ng-disabled="isWorking"
+                                    type="submit" class="btn btn-primary">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

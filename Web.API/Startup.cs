@@ -1,8 +1,6 @@
-using Auth.RolesToPermission;
-using Data.EF;
-using Microsoft.AspNetCore.Authentication;
+using CarRental.Repository;
+using CarRental.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +9,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
+using System;
 using System.Linq;
 using System.Security.Claims;
 
@@ -41,7 +43,14 @@ namespace Web.API
             });
 
             services.AddDbContext<DiallogDbContext>
-                (options => options.UseSqlite(Configuration.GetConnectionString("DiallogDbContext")));
+                (options => options.UseSqlServer(Configuration.GetConnectionString("DiallogDbContext"),
+                    sqlOptions =>
+                    {
+                        sqlOptions.EnableRetryOnFailure(
+                        maxRetryCount: 10,
+                        maxRetryDelay: TimeSpan.FromSeconds(30),
+                        errorNumbersToAdd: null);
+                    }));
 
             services.AddAuthentication(options =>
             {
@@ -58,14 +67,21 @@ namespace Web.API
                     };
                 });
 
-            // Register adding of Permissions to identity claims
-            services.AddScoped<IClaimsTransformation, AddPermissionsClaim>();
+            services.AddScoped<ICarService, CarService>();
+            services.AddScoped<IBookingService, BookingService>();
+            services.AddScoped<IPaymentService, StripePaymentService>();
 
-            // Register the Permission policy handlers
-            services.AddSingleton<IAuthorizationPolicyProvider, AuthorizationPolicyProvider>();
-            services.AddSingleton<IAuthorizationHandler, PermissionHandler>();
-
-            services.AddControllers();
+            services.AddControllers()
+                .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
+                    options.SerializerSettings.DateFormatHandling = DateFormatHandling.IsoDateFormat;
+                    options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                    options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+                    options.SerializerSettings.Converters.Add(new StringEnumConverter());
+                    options.SerializerSettings.Converters.Add(new IsoDateTimeConverter());
+                });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });

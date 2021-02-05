@@ -9,7 +9,14 @@ angular.module('myApp.home', ['ngRoute'])
         });
     }])
 
-    .controller('HomeCtrl', ['$scope',
-        function ($scope) {
+    .controller('HomeCtrl', ['$scope', 'SpinnerFactory',
+        function ($scope, spinnerFactory) {
             $scope.announcements = [];
+
+            activate();
+
+            function activate() {
+                spinnerFactory.hide();
+            }
+
         }]);

@@ -1,0 +1,64 @@
+﻿<section class="content-header">
+    <h1>
+        Booking Form
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#!/"><i class="fa fa-home"></i> Home</a></li>
+        <li><a href="" ng-click="cancel()">Booking</a></li>
+        <li class="active">Form</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <form ng-submit="submit()">
+                    <div class="box-body">
+                        <div class="form-group" ng-class="{ 'has-feedback has-error' : validationErrors['car'] }">
+                            <label for="car">Car <span class="text-red">*</span></label>
+                            <select class="form-control" id="car"
+                                    ng-model="dirtyObject.car"
+                                    ng-options="car as car.type for car in cars track by car.id"></select>
+                            <label class="help-block" for="car" ng-show="validationErrors['car']">{{ validationErrors['car'] }}</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="startDate">Start Date</label>
+                            <div class="input-group">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-primary" type="button" ng-click="startDate=true"><i class="fa fa-calendar"></i></button>
+                                </div>
+                                <input ng-model="dirtyObject.startDateUtc"
+                                       uib-datepicker-popup="dd-MMM-yyyy" is-open="startDate" ng-click="startDate=!startDate"
+                                       type="text" class="form-control" id="startDate" placeholder="dd-MMM-yyyy">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="endDate">End Date</label>
+                            <div class="input-group">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-primary" type="button" ng-click="endDate=true"><i class="fa fa-calendar"></i></button>
+                                </div>
+                                <input ng-model="dirtyObject.endDateUtc"
+                                       uib-datepicker-popup="dd-MMM-yyyy" is-open="endDate" ng-click="endDate=!endDate"
+                                       type="text" class="form-control" id="endDate" placeholder="dd-MMM-yyyy">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <div class="pull-right">
+                            <button ng-click="cancel()"
+                                    type="reset" class="btn btn-default">
+                                Cancel
+                            </button>
+                            <button ng-disabled="isWorking"
+                                    type="submit" class="btn btn-primary">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
